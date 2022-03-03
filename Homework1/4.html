@@ -27,8 +27,58 @@
 -->
 <script>
   "use strict";
+  var numberOne = prompt("Введите число:");
+var stringOne = String(numberOne);
+var numberLength = stringOne.length;
+//"В числе 74 количество сотен: 0, десятков: 7, единиц: 4"
+var numberHundredsThousands = (numberOne  - numberOne % (10 **(numberLength - 1))) / (10 **(numberLength - 1));
+var numberTensThousands = ((numberOne - numberHundredsThousands * 10**(numberLength - 1))
+                       - (numberOne - numberHundredsThousands * 10**(numberLength - 1))
+                       % (10 **(numberLength - 2))) / (10 **(numberLength - 2));
+var numberThousands = ((numberOne - numberHundredsThousands * 10**(numberLength - 1)
+                    - numberTensThousands * 10**(numberLength - 2))
+                       - (numberOne - numberHundredsThousands * 10**(numberLength - 1) 
+                          - numberTensThousands * 10**(numberLength - 2))
+                       % (10 **(numberLength - 3))) / (10 **(numberLength - 3));
+var numberHundreds = ((numberOne - numberHundredsThousands * 10**(numberLength - 1)
+                    - numberTensThousands * 10**(numberLength - 2)
+                  - numberThousands * 10**(numberLength - 3))
+                       - (numberOne - numberHundredsThousands * 10**(numberLength - 1) 
+                          - numberTensThousands * 10**(numberLength - 2)
+                         - numberThousands * 10**(numberLength - 3))
+                       % (10 **(numberLength - 4))) / (10 **(numberLength - 4));
+var numberTens = ((numberOne - numberHundredsThousands * 10**(numberLength - 1)
+                    - numberTensThousands * 10**(numberLength - 2)
+                  - numberThousands * 10**(numberLength - 3)
+                  - numberHundreds * 10**(numberLength - 4))
+                       - (numberOne - numberHundredsThousands * 10**(numberLength - 1) 
+                          - numberTensThousands * 10**(numberLength - 2)
+                         - numberThousands * 10**(numberLength - 3)
+                         - numberHundreds * 10**(numberLength - 4))
+                       % (10 **(numberLength - 5))) / (10 **(numberLength - 5));
+var numberUnits = ((numberOne - numberHundredsThousands * 10**(numberLength - 1)
+                    - numberTensThousands * 10**(numberLength - 2)
+                  - numberThousands * 10**(numberLength - 3)
+                  - numberHundreds * 10**(numberLength - 4)
+               - numberTens * 10**(numberLength - 5) )
+                       - (numberOne - numberHundredsThousands * 10**(numberLength - 1) 
+                          - numberTensThousands * 10**(numberLength - 2)
+                         - numberThousands * 10**(numberLength - 3)
+                         - numberHundreds * 10**(numberLength - 4)
+                        - numberTens * 10**(numberLength - 5) )
+                       % (10 **(numberLength - 6))) / (10 **(numberLength - 6));
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+
+
+
+console.log("В числе", numberOne,
+            "количество сотен тысяч:", numberHundredsThousands ,
+            ", количество десятков тысяч:", numberTensThousands,
+            ", количество тысяч:", numberThousands,
+            ", количество сотен:", numberHundreds,
+            ", количество десятков:", numberTens,
+            ", количество единиц:", numberUnits);
+
 </script>
 </body>
 </html>
