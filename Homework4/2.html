@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+ 
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+ 
+---
+ 
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+ 
+---
+ 
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+  "use strict";
+  // Создание класса в стиле 5.
+  // В стиле 5 класс называется функция-конструктор?
+  /*
+  получение информации об объекте Date(), из консоли:
+  new Date();
+  Чтобы вывести прототип , тоесть первичный класс, на основании которого создан объект Date(),нужно использовать комманду:
+  console.dir(new Date());
+  В выводе будет показана куча методов и атрибутов для прототипа данного объекта.
+  Если вместо new Date() указать просто Date(), то будет просто строка.
+  */
+ 
+  //Создание класса в стиле 5.
+ 
+  function PostES5(author, text) {
+    this.author = author;
+    this.text = text;
+    this.updatedAt = new Date();
+  };
+  
+ 
+  
+  // Создание поста в стиле 5.
+  const postes51 = new PostES5("ЭАПукеу", "цеукекуецуке");
+ 
+  console.log(postes51);
+  console.log(postes51.author);
+  console.log(postes51.text);
+ 
+  //Метод, меняющий текст поста(в стиле 5):
+  
+  PostES5.prototype.edit = function (text) {
+    this.text = text; 
+    this.updatedAt = new Date();
+  };
+ 
+  console.log(postes51);
+ 
+  // Создание поста в стиле 5.
+  const postes52 = new PostES5("Вижгерт", "куенркепрп кегнркен карокрвкр");
+  console.log(postes52);
+  // Внесение временной задержки для выполнения метода edit:
+  setTimeout(() => {
+    postes52.edit('erteddfvd')
+    console.log(postes52);
+  }, 1000);
+ 
+  setTimeout(() => {
+    postes52.edit('И DFD rtyrty ВАРПАР пвап')
+    console.log(postes52);
+  }, 10000);
+ 
+  postes52.edit('УКЕу врвар КЕГКЕ');
+  console.log(postes52);
+  /*
+  после создания метода edit он появляется и в прототипе объекта postes51, который был создан до создания метода edit. 
+  Почему так происходит?
+  Разве это не нарушение принципа последовательности выполнения комманд в программе?
+  Так же аналогичный вопрос возникает, когда виден результат работы функции setTimeout. Она задерживает на указанное время только код, 
+  который внутри неё, но не весь , который ниже неё. Почему так происходит?
+  */
+ 
+  //Создание класса в стиле 6.
+  
+  class PostES6 {
+    constructor(author, text){
+      this.author = author;
+      this.text = text; 
+      this.updatedAt = new Date();
+    };
+  //Метод, меняющий текст поста(в стиле 6):
+    edit(text){
+      this.text = text; 
+      this.updatedAt = new Date();
+    };
+ 
+  };
+ 
+  const postES61 = new PostES6("ERTgv", "rtukyuk hfgh 9987879 tjhfh");
+  console.log(postES61);
+  // Выполнение метода edit для объекта postES61, созданного на основе класса PostES6 в стиле 6:
+  postES61.edit('56756 587 8797897 789788795');
+  console.log(postES61);
+ 
+  // Создание функции-констурктора для закрепления поста в социальной сети (стиль 5):
+ 
+  function AttachedPostES5(author,text){
+    PostES5.call(this,author,text);
+    this.highlighted = false;
+  }
+  // Установка объекта, который будет служить прототипом для всех объектов, которые будут созданы функцией-конструктором AttachedPostES5 :
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  // Помещение функции-конструктора в конструктор:
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+  //Добавить к прототипу свойство makeTextHighlighted(сделай текст подсвеченным):
+  AttachedPostES5.prototype.makeTextHighlighted = function () {
+    this.highlighted = true;
+    this.updatedAt = new Date();
+  }
+
+  //Создание нового объекта при помощи функции -констурктора AttachedPostES5(стиль 5):
+  
+  const attachedPostES5 = new AttachedPostES5('УКНУКПапва','аврарпа варврва вариваривапи');
+  console.log(attachedPostES5);
+  attachedPostES5.makeTextHighlighted();
+  console.log(attachedPostES5);
+  attachedPostES5.edit('Новый текст');
+  console.log(attachedPostES5);
+  // Создание класса для закрепления поста в социальной сети (стиль 6):
+  class AttachedPostES6 extends PostES6 {
+    highlighted = false;
+    // Создание метода для класса:
+    makeTextHighlighted(value) {
+      this.highlighted = true;
+      this.updatedAt = new Date();
+    }
+  }
+
+  const attachedPostES6 = new AttachedPostES6('УКНУКПапва','text in style 6');
+  console.log(attachedPostES6);
+  attachedPostES6.edit('Новый текст в стиле 6');
+  console.log(attachedPostES6);
+  attachedPostES6.makeTextHighlighted();
+  console.log(attachedPostES6);
+ 
+</script>
+</body>
+</html>
